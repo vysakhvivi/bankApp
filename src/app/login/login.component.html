@@ -14,13 +14,14 @@
                   
               </div>
               <div class="card-body">
-                  <form onsubmit="event.preventDefault();bank.authenticate()">
+                  <form>
                       <div class="input-group form-group">
                           <div class="input-group-prepend">
                               <span class="input-group-text"><i class="fas fa-user"></i></span>
                           </div>
                           <!-- (change)="loginaccnt($event)" -->
-                          <input type="text" #acno class="form-control" [placeholder]=inputplaceholder id="login_accno" required>
+                          <!-- #acno -->
+                          <input type="text" name="acno" [(ngModel)]="acno" class="form-control" [placeholder]=inputplaceholder id="login_accno" required>
                           
                       </div>
                       <div class="input-group form-group">
@@ -28,7 +29,8 @@
                               <span class="input-group-text"><i class="fas fa-key"></i></span>
                           </div>
                           <!-- //(change)="passaccnt($event)" -->
-                          <input type="password" #pswd class="form-control" placeholder="password" id="login_password" required>
+                          <!-- #pswd -->
+                          <input type="password" name="pswd" [(ngModel)]="pswd" class="form-control" placeholder="password" id="login_password" required>
                       </div>
                       
                       <div class="form-group">
