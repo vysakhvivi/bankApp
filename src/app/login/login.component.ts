@@ -7,10 +7,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoginComponent implements OnInit {
 
-  database={
-    1000:{accntno:1001,accntname:"achu",balance:4000,password:1000},
-    1001:{accntno:1002,accntname:"kichu",balance:5000,password:1001},
-    1002:{accntno:1003,accntname:"sachu",balance:6000,password:1002}
+  database:any={
+    1000:{acno:1000,accntname:"achu",balance:4000,password:1000},
+    1001:{acno:1001,accntname:"kichu",balance:5000,password:1001},
+    1002:{acno:1002,accntname:"sachu",balance:6000,password:1002}
 
   }
 
@@ -39,9 +39,33 @@ console.log(this.pass);
 
   }
 
-  login()
-  {
-    alert("login clicked")
-  }
+  
 
+
+  login(a:any,b:any)
+  {
+    var acno=a.value;
+    var pswd=b.value
+  
+    let database=this.database
+  
+    if(acno in database)
+
+    {
+      if(pswd==database[acno]["password"]){
+        alert("login succesfull")
+
+      }
+      else
+      {      alert("Incorrect password")
+  
+      }
+    }
+    else
+    {      alert("user not found")
+
+    }
+    
+   
+}
 }
