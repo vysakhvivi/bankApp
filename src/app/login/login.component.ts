@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -20,27 +21,27 @@ export class LoginComponent implements OnInit {
   acno = "";
   pswd = "";
 
-  constructor() { }
+  constructor(private router:Router) { }
 
   ngOnInit(): void {
   }
 
-  loginaccnt(event: any) {
-    this.acno = event.target.value
-    console.log(this.acno);
+  // loginaccnt(event: any) {
+  //   this.acno = event.target.value
+  //   console.log(this.acno);
 
-  }
+  // }
 
-  passaccnt(event: any) {
-    this.pswd = event.target.value
-    console.log(this.pswd);
+  // passaccnt(event: any) {
+  //   this.pswd = event.target.value
+  //   console.log(this.pswd);
 
-  }
-
-
+  // }
 
 
-  login(a:any,b:any) {
+
+
+  login() {
     var acno = this.acno;
     var pswd = this.pswd;
 
@@ -49,6 +50,7 @@ export class LoginComponent implements OnInit {
     if (acno in database) {
       if (pswd == database[acno]["pswd"]) {
         alert("login succesfull")
+        this.router.navigateByUrl("dashboard")
 
       }
       else {
