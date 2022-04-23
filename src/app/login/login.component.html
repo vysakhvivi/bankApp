@@ -14,31 +14,34 @@
                   
               </div>
               <div class="card-body">
-                  <form (ngSubmit)="login()">
+                  <form [formGroup]="loginform" (ngSubmit)="login()">
                       <div class="input-group form-group">
                           <div class="input-group-prepend">
                               <span class="input-group-text"><i class="fas fa-user"></i></span>
                           </div>
                           <!-- (change)="loginaccnt($event)" -->
                           <!-- #acno -->
-                          <input type="text" name="acno" [(ngModel)]="acno" class="form-control" [placeholder]=inputplaceholder id="login_accno" required>
+                          <input type="text" name="acno" formControlName="acno" class="form-control" [placeholder]=inputplaceholder id="login_accno" required>
                           
                       </div>
+                      <div *ngIf="(this.loginform.get('acno')?.errors)&&(this.loginform.get('acno')?.touched)"
+                      style="color: red;margin-bottom: 8px;;">Invalid Account number</div>
                       <div class="input-group form-group">
                           <div class="input-group-prepend">
                               <span class="input-group-text"><i class="fas fa-key"></i></span>
                           </div>
                           <!-- //(change)="passaccnt($event)" -->
                           <!-- #pswd -->
-                          <input type="password" name="pswd" [(ngModel)]="pswd" class="form-control" placeholder="password" id="login_password" required>
+                          <input type="password" name="pswd" formControlName="pswd" class="form-control" placeholder="password" id="login_password" required>
                       </div>
-                      
+                      <div *ngIf="(this.loginform.get('pswd')?.errors)&&(this.loginform.get('pswd')?.touched)"
+                      style="color: red;margin-bottom: 8px;;">Invalid password</div>
                       <div class="form-group">
                           <input type="submit" value="Login" class="btn float-right login_btn " style="width:50%" >
                       </div>
                   </form>
               </div>
-              <p style="color:white;align-items:baseline;">Not a user? <a href="./register.html">Register</a></p>
+              <p style="color:white;align-items:baseline;">Not a user? <a routerLink="register" href="./register.html">Register</a></p>
           </div>
       </div>
   </div>

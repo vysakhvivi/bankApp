@@ -1,30 +1,29 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { DatabaseService } from '../services/database.service';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit {
+  aim = 'your perfect banking partner';
 
-  database: any = {
-    1000: { acno: 1000, accntname: "achu", balance: 4000, pswd: 1000 },
-    1001: { acno: 1001, accntname: "kichu", balance: 5000, pswd: 1001 },
-    1002: { acno: 1002, accntname: "sachu", balance: 6000, pswd: 1002 }
+  inputplaceholder = 'Account number please !!! ';
+  acno = '';
+  pswd = '';
 
-  }
+  constructor(private router: Router, private db: DatabaseService,private fb:FormBuilder) {}
 
-  aim = "your perfect banking partner"
+  
 
-  inputplaceholder = "Account number please !!! "
-  acno = "";
-  pswd = "";
-
-  constructor(private router:Router) { }
-
-  ngOnInit(): void {
-  }
+  loginform=this.fb.group({
+  acno:['',[Validators.required,Validators.pattern('[0-9]*')]],
+  pswd:['',[Validators.required,Validators.pattern('[a-zA-Z0-9]*')]]
+  })
+  ngOnInit(): void {}
 
   // loginaccnt(event: any) {
   //   this.acno = event.target.value
@@ -38,32 +37,26 @@ export class LoginComponent implements OnInit {
 
   // }
 
-
-
-
   login() {
-    var acno = this.acno;
-    var pswd = this.pswd;
+    var acno = this.loginform.value.acno;
+    var pswd = this.loginform.value.pswd;
 
-    let database = this.database
-
-    if (acno in database) {
-      if (pswd == database[acno]["pswd"]) {
-        alert("login succesfull")
-        this.router.navigateByUrl("dashboard")
-
+    if(this.loginform.valid)
+    {
+      var result=this.db.login(acno,pswd)
+      if(result)
+      {
+           alert('login succesfull');
+           this.router.navigateByUrl('dashboard');
       }
-      else {
-        alert("Incorrect password")
-
-      }
+     }
+     else
+     {
+       alert("Invalid Login form")
+     }
     }
-    else {
-      alert("user not found")
 
-    }
-  }
-
+    
   // login(a: any, b: any) {
   //   var acno = a.value;
   //   var pswd = b.value

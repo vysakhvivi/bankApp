@@ -1,1 +1,111 @@
-<p style="background-color: red; color: black;">dashboard works!</p>
+ <!-- As a link -->
+ <nav class="navbar navbar-light bg-dark " >
+    <a class="navbar-brand  " href="#" style="color:rgb(85, 98, 237);"><b>&#169; HAFC Bank Pvt.Ltd </b></a>
+    <span class="quote text-light">Giving you freedom...</span>
+  </nav>
+  
+  <h4 style="background-color: bisque; color: rgb(224, 81, 81) ; text-align: center;">Welcome {{user}}</h4>
+
+  <a routerLink="/transaction">Transaction history</a>
+
+  <div class="container col-md-12 mt-0">
+      <div class="d-flex justify-content-center h-100">
+          <div class="card">
+              <div class="card-header">
+                  <h3 class="text-center"> Deposit Form</h3>
+                  
+              </div>
+              <div class="card-body">
+                  <form [formGroup]="depositform" (ngSubmit)="deposit()">
+                      
+                      <div class="input-group form-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fas fa-user"></i></span>
+                        </div>
+                        <!-- //(change)="passaccnt($event)" -->
+                        <!-- #pswd -->
+                        <input type="text" name="accntName" formControlName="acno" class="form-control" placeholder="Account Number" id="login_acno" required>
+                    </div>
+                    <div *ngIf="(this.depositform.get('acno')?.errors)&&(this.depositform.get('acno')?.touched)"
+                      style="color: red;margin-bottom: 8px;;">Invalid Account number</div>
+                      <div class="input-group form-group">
+                          <div class="input-group-prepend">
+                              <span class="input-group-text"><i class="fas fa-key"></i></span>
+                          </div>
+                          <!-- //(change)="passaccnt($event)" -->
+                          <!-- #pswd -->
+                          <input type="password" name="pswd" formControlName="pswd" class="form-control" placeholder="password" id="login_password" required>
+                      </div>
+                      <div *ngIf="(this.depositform.get('pswd')?.errors)&&(this.depositform.get('pswd')?.touched)"
+                      style="color: red;margin-bottom: 8px;;">Invalid password</div>
+                      <div class="input-group form-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fas fa-key"></i></span>
+                        </div>
+                        <!-- //(change)="passaccnt($event)" -->
+                        <!-- #pswd -->
+                        <input type="number" name="amount" formControlName="amount" class="form-control" placeholder="Enter the amount" id="accnt_amount" required>
+                    </div>
+                    <div *ngIf="(this.depositform.get('amount')?.errors)&&(this.depositform.get('amount')?.touched)"
+                    style="color: red;margin-bottom: 8px;;">Invalid Amount</div>
+                      <div class="form-group">
+                          <input type="submit" value="Deposit" class="btn float-right login_btn " style="width:50%" >
+                      </div>
+                  </form>
+              </div>
+              
+              
+          </div>
+      </div>
+  </div>
+
+  <div class="container col-md-12 mt-0">
+    <div class="d-flex justify-content-center h-100">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="text-center"> Deposit Form</h3>
+                
+            </div>
+            <div class="card-body">
+                <form  [formGroup]="withdrawform" (ngSubmit)="withdraw()">
+                    
+                    <div class="input-group form-group">
+                      <div class="input-group-prepend">
+                          <span class="input-group-text"><i class="fas fa-user"></i></span>
+                      </div>
+                      <!-- //(change)="passaccnt($event)" -->
+                      <!-- #pswd -->
+                      <input type="text" name="accntName" formControlName="acno1" class="form-control" placeholder="Account Number" id="login_acno" required>
+                  </div>
+                  <div *ngIf="(this.withdrawform.get('acno1')?.errors)&&(this.withdrawform.get('acno1')?.touched)"
+                      style="color: red;margin-bottom: 8px;;">Invalid Account number</div>
+                    <div class="input-group form-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fas fa-key"></i></span>
+                        </div>
+                        <!-- //(change)="passaccnt($event)" -->
+                        <!-- #pswd -->
+                        <input type="password" name="pswd" formControlName="pswd1" class="form-control" placeholder="password" id="login_password" required>
+                    </div>
+                    <div *ngIf="(this.withdrawform.get('pswd1')?.errors)&&(this.withdrawform.get('pswd1')?.touched)"
+                    style="color: red;margin-bottom: 8px;;">Invalid password</div>
+                    <div class="input-group form-group">
+                      <div class="input-group-prepend">
+                          <span class="input-group-text"><i class="fas fa-key"></i></span>
+                      </div>
+                      <!-- //(change)="passaccnt($event)" -->
+                      <!-- #pswd -->
+                      <input type="number" name="amount" formControlName="amount1" class="form-control" placeholder="Enter the amount" id="accnt_amount" required>
+                  </div>
+                  <div *ngIf="(this.withdrawform.get('amount1')?.errors)&&(this.withdrawform.get('amount1')?.touched)"
+                  style="color: red;margin-bottom: 8px;;">Invalid Amount</div> 
+                    <div class="form-group">
+                        <input type="submit" value="Withdraw" class="btn float-right login_btn " style="width:50%" >
+                    </div>
+                </form>
+            </div>
+            
+            
+        </div>
+    </div>
+</div>

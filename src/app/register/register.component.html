@@ -1,0 +1,61 @@
+<!-- As a link -->
+<nav class="navbar navbar-light bg-dark ">
+    <a class="navbar-brand  " href="#" style="color:rgb(85, 98, 237);"><b>&#169; HAFC Bank Pvt.Ltd </b></a>
+    <span class="quote text-light">Giving you freedom...</span>
+</nav>
+
+
+<div class="container col-md-12 mt-0">
+    <div class="d-flex justify-content-center h-100">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="text-center">Sign Up</h3>
+
+            </div>
+            <div class="card-body">
+                <form [formGroup]="registration" (ngSubmit)="Register()">
+                    <div class="input-group form-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fas fa-user"></i></span>
+                        </div>
+                        <!-- (change)="loginaccnt($event)" -->
+                        <!-- #acno -->
+                        <input type="text" name="acno" formControlName="acno" class="form-control"
+                            placeholder="Account number please" id="login_accno" required>
+
+                    </div>
+                    <div *ngIf="(this.registration.get('acno')?.errors)&&(this.registration.get('acno')?.touched)"
+                        style="color: red;margin-bottom: 8px;;">Invalid Account number</div>
+
+                    <div class="input-group form-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fas fa-user"></i></span>
+                        </div>
+                        <!-- //(change)="passaccnt($event)" -->
+                        <!-- #pswd -->
+                        <input type="text" name="accntName" formControlName="aname" class="form-control"
+                            placeholder="Account Holder Name" id="login_Name" required>
+                    </div>
+
+                    <div *ngIf="(this.registration.get('aname')?.errors)&&(this.registration.get('aname')?.touched)"
+                        style="color: red;margin-bottom: 8px;;">Invalid Username</div>
+                    <div class="input-group form-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fas fa-key"></i></span>
+                        </div>
+                        <!-- //(change)="passaccnt($event)" -->
+                        <!-- #pswd -->
+                        <input type="password" name="pswd" formControlName="pswd" class="form-control"
+                            placeholder="password" id="login_password" required>
+                    </div>
+                    <div *ngIf="(this.registration.get('pswd')?.errors)&&(this.registration.get('pswd')?.touched)"
+                        style="color: red;margin-bottom: 8px;;">Invalid password</div>
+                    <div class="form-group">
+                        <input type="submit" value="Register" class="btn float-right login_btn " style="width:50%">
+                    </div>
+                </form>
+            </div>
+            <p style="color:white;align-items:baseline;">Existing User? <a routerLink="">Login</a></p>
+        </div>
+    </div>
+</div>
