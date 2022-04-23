@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { DatabaseService } from '../services/database.service';
 
 @Component({
@@ -18,7 +19,7 @@ export class DashboardComponent implements OnInit {
 
   user=""
 
-  constructor(private ds: DatabaseService, private fb: FormBuilder) { 
+  constructor(private ds: DatabaseService, private fb: FormBuilder,private router:Router) { 
 
     this.user=this.ds.currentuser
 
@@ -37,6 +38,11 @@ export class DashboardComponent implements OnInit {
   })
 
   ngOnInit(): void {
+    if(!localStorage.getItem("currentacno")){
+      alert("Please Log In to Continue..")
+      this.router.navigateByUrl("")
+    }
+    
   }
 
   deposit() {
@@ -67,5 +73,12 @@ export class DashboardComponent implements OnInit {
       alert("invalid form")
     }
 
+  }
+
+  logout()
+  {
+    localStorage.removeItem("currentacno")
+    localStorage.removeItem("currentuser")
+    this.router.navigateByUrl("")
   }
 }
