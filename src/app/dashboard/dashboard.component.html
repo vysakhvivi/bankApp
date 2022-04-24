@@ -6,8 +6,13 @@
   </nav>
   
   <h4 style="background-color: bisque; color: rgb(224, 81, 81) ; text-align: center;">Welcome {{user}}</h4>
+  <h5 style="color:white;">Login details is : {{logindate|date:'medium'|uppercase}}</h5>
 
   <a routerLink="/transaction">Transaction history</a>
+
+  <button (click)="deletefromparent()" class="btn btn-primary" style="float: right; ">delete</button>
+  <hr>
+  <app-deleteconfirm [item]=accno></app-deleteconfirm>
 
   <div class="container col-md-12 mt-0">
       <div class="d-flex justify-content-center h-100">

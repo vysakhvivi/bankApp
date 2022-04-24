@@ -18,10 +18,12 @@ export class DashboardComponent implements OnInit {
   amount1 = ""
 
   user=""
-
+  logindate:any
+  accno:any
   constructor(private ds: DatabaseService, private fb: FormBuilder,private router:Router) { 
 
     this.user=this.ds.currentuser
+    this.logindate=new Date()
 
   }
 
@@ -36,6 +38,7 @@ export class DashboardComponent implements OnInit {
     pswd1: ['', [Validators.required, Validators.pattern('[a-zA-Z0-9]*')]],
     amount1: ['', [Validators.required, Validators.pattern('[0-9]*')]]
   })
+
 
   ngOnInit(): void {
     if(!localStorage.getItem("currentacno")){
@@ -73,6 +76,10 @@ export class DashboardComponent implements OnInit {
       alert("invalid form")
     }
 
+  }
+
+  deletefromparent(){
+    this.accno=JSON.parse(localStorage.getItem("currentacno")||"")
   }
 
   logout()
