@@ -88,4 +88,14 @@ export class DashboardComponent implements OnInit {
     localStorage.removeItem("currentuser")
     this.router.navigateByUrl("")
   }
+
+  oncancel()
+  {
+    this.accno=""
+  }
+
+  ondelete(event:any)
+  {
+alert("delete account "+event)
+  }
 }

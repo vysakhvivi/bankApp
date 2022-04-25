@@ -12,13 +12,13 @@
 
   <button (click)="deletefromparent()" class="btn btn-primary" style="float: right; ">delete</button>
   <hr>
-  <app-deleteconfirm [item]=accno></app-deleteconfirm>
+  <app-deleteconfirm (ondelete)="ondelete($event)" (oncancel)="oncancel()" [item]=accno></app-deleteconfirm>
 
-  <div class="container col-md-12 mt-0">
+  <div [ngClass]="accno? 'style1':''" class="container col-md-12 mt-0">
       <div class="d-flex justify-content-center h-100">
           <div class="card">
               <div class="card-header">
-                  <h3 class="text-center"> Deposit Form</h3>
+                  <h3 appHighlight class="text-center"> Deposit Form</h3>
                   
               </div>
               <div class="card-body">
@@ -65,11 +65,11 @@
       </div>
   </div>
 
-  <div class="container col-md-12 mt-0">
+  <div [ngClass]="accno? 'style1':''" class="container col-md-12 mt-0">
     <div class="d-flex justify-content-center h-100">
         <div class="card">
             <div class="card-header">
-                <h3 class="text-center"> Withdraw Form</h3>
+                <h3 appHighlight class="text-center"> Withdraw Form</h3>
                 
             </div>
             <div class="card-body">
