@@ -1,0 +1,7 @@
+
+//building the app
+//ng build --prod
+
+//creating a server
+//npm i -g http-server
+
