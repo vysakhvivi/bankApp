@@ -29,19 +29,22 @@ registration=this.fb.group({
 
     if(this.registration.valid)
     {
-      var result = this.db.register(acno, pswd, aname)
-
-      if (result) {
-        alert("Successfully registered")
-        this.router.navigateByUrl("")
-      }
-      else {
-        alert("User already Exists. Please Log in")
-      }
+      this.db.register(acno, pswd, aname)
+      .subscribe((result:any)=>{
+        if (result) {
+          alert(result.message)
+          this.router.navigateByUrl("")
+        }
+        
+      },
+      (result)=>{
+    alert(result.error.message)
+      })
+    
     }
     else
     {
-      alert("invalid form")
+      alert("Invalid !!! ")
     }
     
   }

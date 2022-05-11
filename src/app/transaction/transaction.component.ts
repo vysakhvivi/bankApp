@@ -13,8 +13,18 @@ export class TransactionComponent implements OnInit {
 
 
   constructor(private ds:DatabaseService) {
-    this.acno=this.ds.currentacno
-    this.transaction=this.ds.transaction(this.acno)
+    this.acno=JSON.parse(localStorage.getItem("currentacno")||'')
+    this.ds.transaction(this.acno)
+    .subscribe((result:any)=>{
+if(result){
+  this.transaction=result.transaction
+}
+    },
+    
+      (result)=>{
+        alert(result.error.message)
+      }
+    )
     console.log(this.transaction);
     
    }

@@ -22,7 +22,7 @@ export class DashboardComponent implements OnInit {
   accno:any
   constructor(private ds: DatabaseService, private fb: FormBuilder,private router:Router) { 
 
-    this.user=this.ds.currentuser
+    this.user=JSON.parse(localStorage.getItem('currentuser')||'')
     this.logindate=new Date()
 
   }
@@ -41,10 +41,10 @@ export class DashboardComponent implements OnInit {
 
 
   ngOnInit(): void {
-    if(!localStorage.getItem("currentacno")){
-      alert("Please Log In to Continue..")
-      this.router.navigateByUrl("")
-    }
+    // if(!localStorage.getItem("currentacno")){
+    //   alert("Please Log In to Continue..")
+    //   this.router.navigateByUrl("")
+    // }
     
   }
 
@@ -54,24 +54,41 @@ export class DashboardComponent implements OnInit {
     var amount = this.depositform.value.amount
     if (this.depositform.valid) {
       var result = this.ds.deposit(acno, pswd, amount)
-      if (result)
-        alert(amount + " has been deposited.. The new balance is " + result)
-    }
-    else {
-      alert("invalid form")
-    }
+      .subscribe((result:any)=>{
+        if(result)
+        {
+          alert(result.message)
+        }
+      },
+      
+        result=>{
+          alert(result.error.message)
+        }
+      )
+      
   }
+}
 
   withdraw() {
     var acno = this.withdrawform.value.acno1
     var pswd = this.withdrawform.value.pswd1
     var amount = this.withdrawform.value.amount1
-
     if (this.withdrawform.valid) {
-      var result = this.ds.withdraw(acno, pswd, amount)
-      if (result)
-        alert(amount + " has been withdrawn.. The new balance is " + result)
-    }
+       this.ds.withdraw(acno, pswd, amount)
+      .subscribe((result:any)=>{
+        if(result)
+        {
+          alert(result.message)
+        }
+      },
+      
+        result=>{
+          alert(result.error.message)
+        }
+      )
+      
+  }
+   
     else {
       alert("invalid form")
     }
@@ -96,6 +113,19 @@ export class DashboardComponent implements OnInit {
 
   ondelete(event:any)
   {
-alert("delete account "+event)
+    
+      this.ds.ondelete(event)
+     .subscribe((result:any)=>{
+       if(result)
+       {
+         alert(result.message)
+         this.router.navigateByUrl("")
+       }
+     },
+     
+       (result:any)=>{
+         alert(result.error.message)
+       }
+     )
   }
 }

@@ -1,4 +1,9 @@
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+
+const options={
+  headers:new HttpHeaders()
+}
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +20,7 @@ export class DatabaseService {
 
   }
 
-  constructor() { 
+  constructor(private http:HttpClient) { 
     this.getdetails()
   }
 
@@ -48,111 +53,68 @@ export class DatabaseService {
 
 
   register(acno: any, pswd: any, accntname: any) {
-    let database = this.database
-
-    if (acno in database) {
-      return false
+    const data={
+      acno,
+      pswd,
+      accntname
     }
-    else {
-      database[acno] = {
-        acno,
-        accntname,
-        balance: 0,
-        pswd,
-        transaction: []
-
-      }
-      this.savedetails()
-      return true
-    }
+  return  this.http.post('http://localhost:3000/register',data)
   }
   //login
 
   login(acno: any, pswd: any) {
 
 
-    let database = this.database;
-
-    if (acno in database) {
-      if (pswd == database[acno]['pswd']) {
-        this.currentuser = database[acno]['accntname']
-        this.currentacno = acno
-        this.savedetails()
-
-        return true
-      }
-      else {
-        alert('Incorrect password');
-        return false
-      }
+    const data={
+      acno,
+      pswd
     }
-    else {
-      alert('user not found');
-      return false
-    }
+    return this.http.post('http://localhost:3000/login',data)
   }
 
   deposit(acno: any, pswd: any, amnt: any) {
-    var amount = parseInt(amnt)
-
-    let database = this.database
-
-    if (acno in database) {
-      if (pswd = database[acno]["pswd"]) {
-        database[acno]["balance"] += amount
-        database[acno]["transaction"].push({
-          type: "CREDIT",
-          amount: amount
-        })
-        this.savedetails()
-
-        return database[acno]["balance"]
-      }
-      else {
-        alert("wrong password")
-        return false
-      }
+    const data={
+      acno,
+      pswd,
+      amnt
     }
-    else {
-      alert("User does not exists")
-      return false
-    }
+  return  this.http.post('http://localhost:3000/deposit',data,this.getoptions())
   }
+
+  getoptions(){
+    const token= JSON.parse(localStorage.getItem("token")||'')
+    let headers= new HttpHeaders
+    if(token){
+      headers=headers.append('h-token',token)
+      options.headers=headers
+    }
+    return options
+  }
+  
 
   withdraw(acno: any, pswd: any, amnt: any) {
-    var amount = parseInt(amnt)
-
-    let database = this.database
-
-    if (acno in database) {
-      if (pswd = database[acno]["pswd"]) {
-        if (database[acno]["balance"] > amount) {
-          database[acno]["balance"] -= amount
-          database[acno]["transaction"].push({
-            type: "DEBIT",
-            amount: amount
-          })
-
-          this.savedetails()
-          return database[acno]["balance"]
-        }
-        else {
-          alert("insufficient funds")
-        }
-
-      }
-      else {
-        alert("wrong password")
-        return false
-      }
+    const data={
+      acno,
+      pswd,
+      amnt
     }
-    else {
-      alert("User does not exists")
-      return false
-    }
+  return  this.http.post('http://localhost:3000/withdraw',data,this.getoptions())
   }
+
 
   transaction(acno: any) {
-    return this.database[acno].transaction
+    const data={
+      acno
+    }
+  return  this.http.post('http://localhost:3000/transaction',data,this.getoptions())
   }
+
+  
+  ondelete(acno:any)
+  {
+    return this.http.delete('http://localhost:3000/ondelete/'+acno,this.getoptions())
+  }
+
 }
+
+
